@@ -1,0 +1,36 @@
+InputForm:
+<InputForm>:
+    title:title
+    body:body
+    checkbox_agree:checkbox_agree
+    checkbox_txt:checkbox_txt
+    button:button
+
+	BoxLayout:
+
+	    orientation: "vertical"
+	    BoxLayout:
+        Label:
+            id:title
+            font_name: "DejaVuSans.ttf"
+        BoxLayout:
+        Label:
+            halign: 'right'
+            id:body
+            font_name: "DejaVuSans.ttf"
+        BoxLayout:
+            size_hint_y:4
+        BoxLayout:
+            Button:
+                #size_hint_x:0.3
+                id:button
+                font_name: "DejaVuSans.ttf"
+                on_press:root.contin()
+            Label:
+                id:checkbox_txt
+                font_name: "DejaVuSans.ttf"
+            CheckBox:
+                id:checkbox_agree
+                active: False
+        BoxLayout:
+
