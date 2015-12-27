@@ -1,48 +1,63 @@
-import kivy
-kivy.require('1.9.0')  # replace with your current kivy_tests version !
 from kivy.app import App
-from kivy.graphics import *
-from kivy.uix.widget import Widget
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
-from functools import partial
-import socket
+from kivy.uix.checkbox import CheckBox
+from kivy.properties import ObjectProperty
 import xml.etree.ElementTree as ET
+from kivy.core.window import Window
 
-#agreement = ET.parse('agreement.xml')
-#root_agreement = agreement.getroot()
-#details = ET.parse('details.xml')
-#root_details = details.getroot()
+class InputForm(BoxLayout):
+    title=ObjectProperty()
+    body=ObjectProperty()
+    checkbox_agree=ObjectProperty()
+    checkbox_txt=ObjectProperty()
+    button=ObjectProperty()
+    def __init__(self):
+        super(InputForm, self).__init__()
+        dict = {'title':self.title,
+                'body':self.body,
+                'checkbox_txt':self.checkbox_txt,
+                'button':self.button}
+        f = open('agreement.xml','r', encoding='utf-8')
+        txt = f.read()
+        tree = ET.fromstring(txt)
+        for child in tree:
+            dict[child.tag].text = child.text[::-1]
+            print(child.tag, child.text)
 
-class MyApp(App):
-#    connection = None
-#    server_list = ['192.168.43.52'] #['192.168.43.94','192.168.43.52','192.168.1.102', '192.168.1.101', '192.168.1.1']
-#    port = 12345
+    def contin(self):
+        if self.checkbox_agree.active:
+            print("im working")
+        else:
+            print("pls mark checkbox")
 
-    def build(self):
-
-        wid = Widget()
-        curiosity_q = ET.parse('curiosity_q.xml')
-        root_curiosity_q = curiosity_q.getroot()
-        label1 = Label(root_curiosity_q[0][0].text)
-        #button = Button(text='Connect...', on_press=partial(self.connect, label))
-        textbox = TextInput(size_hint_y=.1, multiline=False)
-        textbox.bind(on_text_validate=partial(self.send_message, textbox, label))
-        layout = BoxLayout()
-        layout.add_widget(label)
-        #layout.add_widget(button)
-
-        root = BoxLayout(orientation='vertical')
-        root.add_widget(wid)
-        root.add_widget(layout)
-
-        return root
+    # def on_checkbox_active(checkbox, value):
+    #     if value:
+    #         print('The checkbox', checkbox, 'is active')
+    #     else:
+    #         print('The checkbox', checkbox, 'is inactive')
 
 
-    def print_message(self, msg, label):
-        label.text += str(msg) + "\n"
+
+        #self.body.text= txt[1:len(txt)-2]
+        # self.checkbox_agree.text= txt[len(txt)-2]
+        # self.button.text= txt[len(txt)-1]
+        # print(txt[0],txt[1:len(txt)-2],txt[len(txt)-2],txt[len(txt)-1])
+        #for line in txt:
+        #    txt_combine = txt_combine + line + "\n"
+
+
+
+
+class AgreementApp(App):
+    pass
+    # def build(self):
+    #     f = open('hebrew.txt','r', encoding='utf-8')
+    #     txt = f.readlines()
+    #     print(txt)
+    #     print(self.root)
+    #     pass
 
 if __name__ == '__main__':
-    MyApp().run()
+    AgreementApp().run()
+
+
