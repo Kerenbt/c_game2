@@ -43,7 +43,7 @@ class InputForm(BoxLayout):
         # self.button.text= txt[len(txt)-1]
         # print(txt[0],txt[1:len(txt)-2],txt[len(txt)-2],txt[len(txt)-1])
         #for line in txt:
-        #    txt_combine = txt_combine + line + "\n"
+        #txt_combine = txt_combine + line + "\n"
 
 
 
